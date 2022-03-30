@@ -10,7 +10,8 @@ import {RootStore} from "../../data/Store";
 import {SetAuthDataAction} from "../../data/auth_redux/AuthHelper";
 // @ts-ignore
 import {Shake} from 'reshake'
-import {API_KEY} from "../../utils/constants";
+import {API_KEY, FEED_PATH} from "../../utils/constants";
+import {useNavigate} from "react-router-dom";
 
 export const AuthScreen = () => {
 
@@ -20,6 +21,7 @@ export const AuthScreen = () => {
     }
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const authState = useSelector((state: RootStore) => state.authReducer)
     const [authData, setAuthData] = useState<AuthData>(initialAuthData)
 
@@ -69,6 +71,7 @@ export const AuthScreen = () => {
     const onSignIn = () => {
         if (authState.isGUIDValidPattern && authState.apiKey !== "") {
             localStorage.setItem(API_KEY, authState.apiKey)
+            setTimeout(() => navigate(FEED_PATH), 100)
         }
     }
 
