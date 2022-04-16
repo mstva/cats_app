@@ -22,66 +22,77 @@ export const FavoriteScreen = () => {
 
     return (
         <CheckAuthContainer>
-            <chakra.Center>
-                <chakra.Flex flexDir={"column"} width={"320px"}>
-                    <chakra.Flex
-                        flexDir={"row"}
-                        justifyContent={"space-between"}
-                        p={"16px"}
+            <chakra.Flex flexDir={"column"} width={"100%"}>
+                <chakra.Flex
+                    flexDir={"row"}
+                    justifyContent={"space-between"}
+                    py={"16px"}
+                    px={"30px"}
+                    mb={"10px"}
+                    boxShadow='md'
+                    position={"sticky"}
+                    top={"0"}
+                    width={"100%"}
+                    zIndex={"20"}
+                    backgroundColor={"#ffffff"}
+                >
+                    <chakra.Image
+                        src={back_arrow}
+                        alt='back_arrow'
+                        width={"18px"}
+                        height={"20px"}
+                        cursor={"pointer"}
+                        onClick={() => navigate(FEED_PATH)}
+                    />
+                    <chakra.Text
+                        fontFamily={'Roboto'}
+                        fontStyle={'normal'}
+                        fontWeight={'400'}
+                        fontSize={'16px'}
+                        lineHeight={'16px'}
+                        display={'flex'}
+                        alignItems={'center'}
+                        color={'#000000'}
+                        cursor={"pointer"}
                     >
-                        <chakra.Image
-                            src={back_arrow}
-                            alt='back_arrow'
-                            width={"18px"}
-                            height={"20px"}
-                            cursor={"pointer"}
-                            onClick={() => navigate(FEED_PATH)}
-                        />
-                        <chakra.Text
-                            fontFamily={'Roboto'}
-                            fontStyle={'normal'}
-                            fontWeight={'400'}
-                            fontSize={'16px'}
-                            lineHeight={'16px'}
-                            display={'flex'}
-                            alignItems={'center'}
-                            color={'#000000'}
-                            cursor={"pointer"}
-                        >
-                            Favorites
-                        </chakra.Text>
-                        <chakra.Box/>
-                    </chakra.Flex>
+                        Favorites
+                    </chakra.Text>
+                    <chakra.Box/>
+                </chakra.Flex>
+                <chakra.Wrap spacing='10px' justify='center' >
                     {
                         favoriteState.images.map((image: ImageType) => {
-                            return <chakra.Box
-                                key={image.id}
-                                position={"relative"}
-                                display={"inline-flex"}
-                            >
-                                <chakra.Image
-                                    src={image.url}
+                            return <chakra.WrapItem key={image.id}>
+                                <chakra.Box
+                                    position={"relative"}
+                                    display={"inline-flex"}
                                     width={"320px"}
-                                    mx={"10px"}
-                                    mb={"7px"}
-                                    borderRadius={"5px"}
-                                />
-                                <chakra.Image
-                                    src={my_favorite}
-                                    alt="my_favorite"
-                                    width={"30px"}
-                                    height={"30px"}
-                                    position={"absolute"}
-                                    bottom={"20px"}
-                                    right={"5px"}
-                                    zIndex={"1"}
-                                    onClick={() => onRemoveFavorite(image)}
-                                />
-                            </chakra.Box>
+                                    height={"320px"}
+                                >
+                                    <chakra.Image
+                                        src={image.url}
+                                        mx={"10px"}
+                                        mb={"7px"}
+                                        borderRadius={"5px"}
+                                        width={"100%"}
+                                    />
+                                    <chakra.Image
+                                        src={my_favorite}
+                                        alt="my_favorite"
+                                        width={"30px"}
+                                        height={"30px"}
+                                        position={"absolute"}
+                                        bottom={"20px"}
+                                        right={"5px"}
+                                        zIndex={"1"}
+                                        onClick={() => onRemoveFavorite(image)}
+                                    />
+                                </chakra.Box>
+                            </chakra.WrapItem>
                         })
                     }
-                </chakra.Flex>
-            </chakra.Center>
+                </chakra.Wrap>
+            </chakra.Flex>
         </CheckAuthContainer>
     )
 }

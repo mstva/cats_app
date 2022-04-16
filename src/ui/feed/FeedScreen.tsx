@@ -60,58 +60,79 @@ export const FeedScreen = () => {
 
     return (
         <CheckAuthContainer>
-            <chakra.Center>
-                <chakra.Flex flexDir={"column"} width={"320px"}>
-                    <chakra.Flex
-                        flexDir={"row"}
-                        justifyContent={"space-between"}
-                        p={"16px"}
+            <chakra.Flex flexDir={"column"} width={"100%"}>
+                <chakra.Flex
+                    flexDir={"row"}
+                    justifyContent={"space-between"}
+                    py={"16px"}
+                    px={"30px"}
+                    mb={"10px"}
+                    boxShadow='md'
+                    position={"sticky"}
+                    top={"0"}
+                    width={"100%"}
+                    zIndex={"20"}
+                    backgroundColor={"#ffffff"}
+                >
+                    <chakra.Image
+                        src={logout}
+                        alt='logout'
+                        width={"18px"}
+                        height={"20px"}
+                        cursor={"pointer"}
+                        onClick={onLogout}
+                    />
+                    <chakra.Text
+                        fontFamily={'Roboto'}
+                        fontStyle={'normal'}
+                        fontWeight={'400'}
+                        fontSize={'16px'}
+                        lineHeight={'16px'}
+                        display={'flex'}
+                        alignItems={'center'}
+                        color={'#000000'}
+                        cursor={"pointer"}
                     >
-                        <chakra.Image
-                            src={logout}
-                            alt='logout'
-                            width={"18px"}
-                            height={"20px"}
-                            cursor={"pointer"}
-                            onClick={onLogout}
-                        />
-                        <chakra.Text
-                            fontFamily={'Roboto'}
-                            fontStyle={'normal'}
-                            fontWeight={'400'}
-                            fontSize={'16px'}
-                            lineHeight={'16px'}
-                            display={'flex'}
-                            alignItems={'center'}
-                            color={'#000000'}
-                            cursor={"pointer"}
-                        >
-                            instacatbooktube
-                        </chakra.Text>
-                        <chakra.Image
-                            src={favorite}
-                            alt='favorite'
-                            width={"23px"}
-                            height={"20px"}
-                            onClick={() => navigate(FAVORITE_PATH)}
-                        />
-                    </chakra.Flex>
+                        instacatbooktube
+                    </chakra.Text>
+                    <chakra.Image
+                        src={favorite}
+                        alt='favorite'
+                        width={"23px"}
+                        height={"20px"}
+                        onClick={() => navigate(FAVORITE_PATH)}
+                    />
+                </chakra.Flex>
+                <chakra.Wrap spacing='10px' justify='center' >
                     {
                         imagesState.images.map((image: ImageType, index: number) => {
-                            if (imagesState.images.length === index + 1) {
-                                return <chakra.Box
-                                    key={image.id}
+                            return <chakra.WrapItem key={image.id}>
+                                <chakra.Box
                                     position={"relative"}
                                     display={"inline-flex"}
+                                    width={"320px"}
+                                    height={"320px"}
                                 >
-                                    <chakra.Image
-                                        src={image.url}
-                                        width={"320px"}
-                                        mx={"10px"}
-                                        mb={"7px"}
-                                        borderRadius={"5px"}
-                                        ref={lastImageRef}
-                                    />
+                                    {
+                                        imagesState.images.length === index + 1
+                                            ?
+                                            <chakra.Image
+                                                src={image.url}
+                                                mx={"10px"}
+                                                mb={"7px"}
+                                                borderRadius={"5px"}
+                                                ref={lastImageRef}
+                                                width={"100%"}
+                                            />
+                                            :
+                                            <chakra.Image
+                                                src={image.url}
+                                                mx={"10px"}
+                                                mb={"7px"}
+                                                borderRadius={"5px"}
+                                                width={"100%"}
+                                            />
+                                    }
                                     <chakra.Image
                                         src={isFavourite(image) ? my_favorite : un_favorite}
                                         alt={isFavourite(image) ? "my_favorite" : "un_favorite"}
@@ -124,41 +145,16 @@ export const FeedScreen = () => {
                                         onClick={() => onAddFavorite(image)}
                                     />
                                 </chakra.Box>
-                            } else {
-                                return <chakra.Box
-                                    key={image.id}
-                                    position={"relative"}
-                                    display={"inline-flex"}
-                                >
-                                    <chakra.Image
-                                        src={image.url}
-                                        width={"320px"}
-                                        mx={"10px"}
-                                        mb={"7px"}
-                                        borderRadius={"5px"}
-                                    />
-                                    <chakra.Image
-                                        src={isFavourite(image) ? my_favorite : un_favorite}
-                                        alt={isFavourite(image) ? "my_favorite" : "un_favorite"}
-                                        width={"30px"}
-                                        height={"30px"}
-                                        position={"absolute"}
-                                        bottom={"20px"}
-                                        right={"5px"}
-                                        zIndex={"1"}
-                                        onClick={() => onAddFavorite(image)}
-                                    />
-                                </chakra.Box>
-                            }
+                            </chakra.WrapItem>
                         })
                     }
-                    {imagesState.is_images_fetch_loading && (
-                        <chakra.Center>
-                            <chakra.CircularProgress m={"20px"} isIndeterminate color={"#62CC6D"}/>
-                        </chakra.Center>
-                    )}
-                </chakra.Flex>
-            </chakra.Center>
+                </chakra.Wrap>
+                {imagesState.is_images_fetch_loading && (
+                    <chakra.Center>
+                        <chakra.CircularProgress m={"20px"} isIndeterminate color={"#62CC6D"}/>
+                    </chakra.Center>
+                )}
+            </chakra.Flex>
         </CheckAuthContainer>
     )
 }
